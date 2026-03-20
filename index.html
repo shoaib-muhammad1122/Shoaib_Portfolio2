@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLASSIFIED // SHOAIB MUHAMMAD // ACCESS RESTRICTED</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#000000;
+  --bg:#010301;
+  --g:#00ff41;
+  --g2:#00cc33;
+  --g3:rgba(0,255,65,0.08);
+  --gdim:rgba(0,255,65,0.35);
+  --gborder:rgba(0,255,65,0.18);
+  --red:#ff0033;
+  --amber:#ffaa00;
+  --cyan:#00ffee;
+  --white:#e8ffe8;
+  --glow:0 0 8px #00ff41,0 0 24px rgba(0,255,65,0.4);
+  --glow2:0 0 4px #00ff41;
+  --rglow:0 0 8px #ff0033,0 0 24px rgba(255,0,51,0.4);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--g);
+  font-family:'Share Tech Mono',monospace;
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* CRT */
+body::before{
+  content:'';position:fixed;inset:0;z-index:9990;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,0.09) 0px,rgba(0,0,0,0.09) 1px,transparent 1px,transparent 4px);
+  pointer-events:none;animation:flicker 8s infinite;
+}
+@keyframes flicker{0%,95%,100%{opacity:1}96%{opacity:0.92}97%{opacity:1}98%{opacity:0.95}}
+
+/* Vignette */
+body::after{
+  content:'';position:fixed;inset:0;z-index:9989;
+  background:radial-gradient(ellipse 90% 90% at 50% 50%,transparent 55%,rgba(0,0,0,0.9) 100%);
+  pointer-events:none;
+}
+
+/* Custom Cursor */
+#csr{position:fixed;z-index:99999;pointer-events:none;transform:translate(-50%,-50%);}
+#csr-inner{
+  width:6px;height:6px;background:var(--g);
+  box-shadow:var(--glow);
+  animation:csrpulse 1s ease-in-out infinite;
+}
+#csr-outer{
+  position:absolute;
+  width:28px;height:28px;
+  border:1px solid var(--gdim);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  animation:spin 4s linear infinite;
+}
+#csr-outer::before,#csr-outer::after{
+  content:'';position:absolute;
+  width:4px;height:1px;background:var(--g);
+}
+#csr-outer::before{top:50%;left:-6px;transform:translateY(-50%);}
+#csr-outer::after{top:50%;right:-6px;transform:translateY(-50%);}
+@keyframes csrpulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.6;transform:scale(0.7)}}
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+
+/* =================== BOOT =================== */
+#boot{
+  position:fixed;inset:0;z-index:9000;
+  background:#000;
+  display:flex;flex-direction:column;
+  font-family:'VT323',monospace;
+  overflow:hidden;
+}
+#boot-header{
+  padding:16px 24px;
+  border-bottom:1px solid rgba(0,255,65,0.15);
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:13px;letter-spacing:3px;color:rgba(0,255,65,0.4);
+}
+#boot-terminal{
+  flex:1;padding:20px 28px;
+  overflow:hidden;
+  font-size:14px;line-height:1.6;
+}
+#boot-terminal .line{
+  display:block;margin:1px 0;
+  animation:linepop 0.05s forwards;opacity:0;
+}
+@keyframes linepop{to{opacity:1}}
+.line.g{color:var(--g)}
+.line.r{color:var(--red)}
+.line.a{color:var(--amber)}
+.line.c{color:var(--cyan)}
+.line.w{color:rgba(200,255,200,0.7)}
+.line.d{color:rgba(0,255,65,0.3)}
+#boot-bottom{
+  padding:16px 24px 24px;
+  border-top:1px solid rgba(0,255,65,0.12);
+}
+.boot-stages{display:flex;gap:8px;margin-bottom:12px;}
+.boot-stage{
+  flex:1;height:3px;background:rgba(0,255,65,0.08);
+  position:relative;overflow:hidden;
+}
+.boot-stage-fill{
+  height:100%;background:var(--g);
+  box-shadow:var(--glow2);
+  width:0%;transition:width 0.3s ease;
+}
+.boot-stage.done .boot-stage-fill{width:100%}
+#boot-status{
+  font-size:12px;letter-spacing:3px;
+  color:rgba(0,255,65,0.5);
+  display:flex;justify-content:space-between;
+}
+#boot-pct{color:var(--g);font-size:16px;}
+
+/* =================== PORTFOLIO =================== */
+#portfolio{display:none;position:relative;z-index:2;}
+
+/* Particle Canvas */
+#bgcanvas{position:fixed;inset:0;z-index:0;opacity:0.35;}
+
+/* =================== TOPBAR =================== */
+#topbar{
+  position:fixed;top:0;left:0;right:0;z-index:800;
+  background:rgba(0,3,1,0.96);
+  border-bottom:1px solid var(--gborder);
+  backdrop-filter:blur(10px);
+  display:grid;grid-template-columns:auto 1fr auto;
+  align-items:stretch;
+  height:48px;
+}
+.tb-left{
+  display:flex;align-items:center;gap:0;
+  border-right:1px solid var(--gborder);
+}
+.tb-logo{
+  padding:0 20px;
+  font-family:'VT323',monospace;font-size:17px;
+  color:var(--g);letter-spacing:3px;
+  text-shadow:var(--glow2);
+  border-right:1px solid var(--gborder);
+  display:flex;align-items:center;height:100%;
+}
+.tb-threat{
+  padding:0 16px;
+  display:flex;align-items:center;gap:8px;
+  font-size:10px;letter-spacing:2px;color:rgba(0,255,65,0.4);
+}
+.threat-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--g);box-shadow:0 0 6px var(--g);
+  animation:tdot 1.5s ease-in-out infinite;
+}
+@keyframes tdot{0%,100%{opacity:1}50%{opacity:0.3}}
+
+.tb-nav{
+  display:flex;align-items:stretch;list-style:none;
+  justify-content:center;
+}
+.tb-nav a{
+  display:flex;align-items:center;
+  padding:0 18px;
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:rgba(0,255,65,0.35);text-decoration:none;
+  border-right:1px solid rgba(0,255,65,0.08);
+  transition:all 0.2s;position:relative;
+}
+.tb-nav a::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:var(--g);box-shadow:var(--glow2);
+  transform:scaleX(0);transition:transform 0.2s;
+}
+.tb-nav a:hover{color:var(--g);background:rgba(0,255,65,0.04);}
+.tb-nav a:hover::after{transform:scaleX(1);}
+
+.tb-right{
+  display:flex;align-items:center;gap:0;
+  border-left:1px solid var(--gborder);
+}
+.tb-stat{
+  padding:0 14px;
+  font-size:10px;letter-spacing:1px;color:rgba(0,255,65,0.35);
+  border-left:1px solid rgba(0,255,65,0.08);
+  text-align:center;line-height:1.3;
+}
+.tb-stat span{display:block;color:var(--g);font-size:12px;}
+#tb-clock{
+  padding:0 16px;
+  font-family:'VT323',monospace;font-size:18px;
+  color:var(--g);letter-spacing:2px;
+  border-left:1px solid var(--gborder);
+  display:flex;align-items:center;
+  text-shadow:var(--glow2);
+}
+
+/* =================== MAIN =================== */
+main{position:relative;z-index:2;}
+section{padding:90px 48px;}
+.wrap{max-width:1140px;margin:0 auto;}
+
+/* Section label */
+.slabel{
+  font-family:'VT323',monospace;
+  font-size:11px;letter-spacing:5px;color:rgba(0,255,65,0.3);
+  margin-bottom:4px;
+}
+.stitle{
+  font-family:'VT323',monospace;
+  font-size:clamp(32px,5vw,52px);
+  color:var(--g);text-shadow:var(--glow);
+  letter-spacing:4px;
+  margin-bottom:48px;
+  position:relative;display:inline-block;
+}
+.stitle::after{content:'█';animation:blink 0.8s step-end infinite;font-size:0.8em;}
+@keyframes blink{50%{opacity:0}}
+
+/* =================== HERO =================== */
+#hero{
+  min-height:100vh;display:flex;align-items:center;
+  padding-top:48px;position:relative;overflow:hidden;
+}
+.hero-wrap{
+  display:grid;grid-template-columns:1fr 320px;
+  gap:48px;align-items:center;
+  width:100%;max-width:1140px;margin:0 auto;
+  padding:0 48px;
+}
+
+/* SCAN LINE on hero */
+.hero-scanline{
+  position:absolute;left:0;right:0;height:120px;
+  background:linear-gradient(to bottom,transparent,rgba(0,255,65,0.03),transparent);
+  animation:heroScan 6s linear infinite;pointer-events:none;
+}
+@keyframes heroScan{0%{top:-120px}100%{top:100%}}
+
+.hero-eyebrow{
+  font-size:11px;letter-spacing:5px;color:rgba(0,255,65,0.4);
+  margin-bottom:16px;
+  display:flex;align-items:center;gap:10px;
+}
+.hero-eyebrow::before{content:'';flex:0 0 40px;height:1px;background:rgba(0,255,65,0.3);}
+
+.hero-name{
+  font-family:'VT323',monospace;
+  font-size:clamp(64px,9vw,110px);
+  line-height:0.88;letter-spacing:4px;
+  color:var(--g);
+  text-shadow:0 0 20px rgba(0,255,65,0.7),0 0 60px rgba(0,255,65,0.2);
+  position:relative;
+  margin-bottom:24px;
+}
+.hero-name .g1{
+  position:absolute;inset:0;color:#ff0033;
+  clip-path:polygon(0 15%,100% 15%,100% 35%,0 35%);
+  animation:glr 6s infinite;opacity:0;
+  font-family:inherit;font-size:inherit;letter-spacing:inherit;line-height:inherit;
+}
+.hero-name .g2{
+  position:absolute;inset:0;color:#00ffee;
+  clip-path:polygon(0 55%,100% 55%,100% 72%,0 72%);
+  animation:glb 6s 1s infinite;opacity:0;
+  font-family:inherit;font-size:inherit;letter-spacing:inherit;line-height:inherit;
+}
+@keyframes glr{0%,86%,100%{opacity:0;transform:none}87%{opacity:0.8;transform:translate(-6px,0)skewX(-5deg)}89%{opacity:0.8;transform:translate(5px,0)}91%{opacity:0}}
+@keyframes glb{0%,80%,100%{opacity:0;transform:none}81%{opacity:0.6;transform:translate(5px,0)}83%{opacity:0.6;transform:translate(-4px,0)}85%{opacity:0}}
+
+.hero-role{
+  font-size:13px;letter-spacing:5px;
+  color:rgba(0,255,65,0.55);
+  text-transform:uppercase;
+  margin-bottom:36px;
+  min-height:22px;
+}
+#typewriter-text{color:var(--cyan);}
+.tcursor{
+  display:inline-block;width:2px;height:14px;
+  background:var(--g);vertical-align:middle;margin-left:3px;
+  animation:blink 0.7s step-end infinite;
+}
+
+.hero-divider{
+  width:100%;height:1px;
+  background:linear-gradient(90deg,var(--gborder),transparent);
+  margin:32px 0;
+}
+
+.hero-prompt-block{
+  font-family:'VT323',monospace;font-size:16px;
+  color:rgba(0,255,65,0.6);line-height:2;
+}
+.hp-prompt{color:rgba(0,255,65,0.35);}
+.hp-val{color:var(--g);}
+.hp-warn{color:var(--amber);}
+
+.hero-actions{
+  display:flex;flex-wrap:wrap;gap:12px;margin-top:32px;
+}
+.hbtn{
+  padding:11px 22px;
+  border:1px solid var(--gborder);
+  background:rgba(0,255,65,0.04);
+  font-family:'VT323',monospace;font-size:17px;
+  color:rgba(0,255,65,0.5);letter-spacing:2px;
+  text-decoration:none;
+  display:flex;align-items:center;gap:10px;
+  transition:all 0.25s;position:relative;overflow:hidden;
+}
+.hbtn::before{
+  content:'';position:absolute;left:-100%;top:0;bottom:0;
+  width:100%;background:linear-gradient(90deg,transparent,rgba(0,255,65,0.08),transparent);
+  transition:left 0.4s;
+}
+.hbtn:hover{border-color:var(--g);color:var(--g);text-shadow:var(--glow2);}
+.hbtn:hover::before{left:100%;}
+
+/* HERO RIGHT — system monitor */
+.hero-monitor{
+  border:1px solid var(--gborder);
+  background:rgba(0,3,1,0.8);
+  position:relative;overflow:hidden;
+}
+.hm-top{
+  background:rgba(0,255,65,0.06);
+  border-bottom:1px solid var(--gborder);
+  padding:10px 16px;
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:'VT323',monospace;font-size:15px;
+  color:rgba(0,255,65,0.4);letter-spacing:3px;
+}
+.hm-dots{display:flex;gap:6px;}
+.hmd{width:9px;height:9px;border-radius:50%;}
+.hmd.r{background:rgba(255,80,80,0.6);}
+.hmd.y{background:rgba(255,180,0,0.6);}
+.hmd.g{background:rgba(0,255,65,0.6);}
+.hm-body{padding:18px 16px;}
+.hm-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:8px 0;border-bottom:1px dotted rgba(0,255,65,0.07);
+  font-size:12px;
+}
+.hm-row:last-child{border-bottom:none;}
+.hm-key{color:rgba(0,255,65,0.4);letter-spacing:2px;font-size:10px;}
+.hm-val{color:var(--g);font-family:'VT323',monospace;font-size:17px;}
+.hm-bar{
+  width:100%;height:3px;background:rgba(0,255,65,0.08);
+  margin-top:4px;position:relative;
+}
+.hm-bar-fill{
+  height:100%;background:var(--g);box-shadow:var(--glow2);
+  position:relative;
+}
+.hm-bar-fill::after{
+  content:'';position:absolute;right:0;top:-2px;
+  width:2px;height:7px;background:var(--g);
+}
+.hm-section{margin-top:16px;}
+.hm-section-title{
+  font-size:9px;letter-spacing:4px;color:rgba(0,255,65,0.25);
+  margin-bottom:8px;
+}
+.badge-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;}
+.badge{
+  font-size:10px;letter-spacing:1px;padding:3px 8px;
+  border:1px solid rgba(0,255,65,0.2);color:rgba(0,255,65,0.5);
+  background:rgba(0,255,65,0.03);
+}
+.badge.red{border-color:rgba(255,0,51,0.3);color:rgba(255,0,51,0.6);background:rgba(255,0,51,0.03);}
+.badge.amb{border-color:rgba(255,170,0,0.3);color:rgba(255,170,0,0.6);background:rgba(255,170,0,0.03);}
+.badge.cyn{border-color:rgba(0,255,238,0.25);color:rgba(0,255,238,0.5);}
+
+/* Threat meter */
+.threat-meter{
+  margin-top:14px;padding:12px;
+  border:1px solid rgba(255,0,51,0.15);
+  background:rgba(255,0,51,0.03);
+}
+.tm-label{font-size:9px;letter-spacing:4px;color:rgba(255,0,51,0.5);margin-bottom:8px;}
+.tm-bar{width:100%;height:6px;background:rgba(255,0,51,0.08);}
+.tm-fill{width:23%;height:100%;background:linear-gradient(90deg,var(--g),var(--amber),var(--red));box-shadow:0 0 8px rgba(255,170,0,0.4);}
+.tm-val{font-family:'VT323',monospace;font-size:16px;color:var(--amber);margin-top:4px;letter-spacing:2px;}
+
+/* =================== ABOUT =================== */
+#about{background:rgba(0,255,65,0.012);}
+.about-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:48px;align-items:start;}
+.about-id{
+  border:1px solid var(--gborder);
+  background:rgba(0,3,1,0.9);
+  position:relative;overflow:hidden;
+}
+.aid-header{
+  background:rgba(0,255,65,0.07);
+  border-bottom:1px solid var(--gborder);
+  padding:10px 16px;
+  font-family:'VT323',monospace;font-size:15px;
+  color:rgba(0,255,65,0.4);letter-spacing:3px;
+  display:flex;justify-content:space-between;
+}
+.aid-photo{
+  width:100%;aspect-ratio:1;
+  background:repeating-linear-gradient(45deg,rgba(0,255,65,0.02),rgba(0,255,65,0.02) 4px,transparent 4px,transparent 16px);
+  display:flex;align-items:center;justify-content:center;
+  font-size:64px;position:relative;overflow:hidden;
+  border-bottom:1px solid var(--gborder);
+}
+.aidphoto-scan{
+  position:absolute;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,transparent,rgba(0,255,65,0.6),transparent);
+  animation:aidScan 3s linear infinite;
+}
+@keyframes aidScan{0%{top:0;opacity:1}90%{opacity:0.6}100%{top:100%;opacity:0}}
+.aid-corners span{
+  position:absolute;width:16px;height:16px;
+  border-color:var(--g);border-style:solid;opacity:0.6;
+}
+.aid-corners .tl{top:8px;left:8px;border-width:2px 0 0 2px;}
+.aid-corners .tr{top:8px;right:8px;border-width:2px 2px 0 0;}
+.aid-corners .bl{bottom:8px;left:8px;border-width:0 0 2px 2px;}
+.aid-corners .br{bottom:8px;right:8px;border-width:0 2px 2px 0;}
+.aid-data{padding:16px;}
+.aid-field{margin-bottom:10px;}
+.aid-key{font-size:9px;letter-spacing:3px;color:rgba(0,255,65,0.3);margin-bottom:2px;}
+.aid-val{font-family:'VT323',monospace;font-size:18px;color:var(--g);}
+.aid-val.ok{color:var(--g);}
+.aid-val.warn{color:var(--amber);}
+
+.about-content{}
+.aterm{
+  border:1px solid var(--gborder);
+  background:rgba(0,3,1,0.85);
+  margin-bottom:20px;
+}
+.aterm-bar{
+  background:rgba(0,255,65,0.06);
+  border-bottom:1px solid var(--gborder);
+  padding:8px 14px;
+  font-family:'VT323',monospace;font-size:14px;
+  color:rgba(0,255,65,0.35);letter-spacing:2px;
+  display:flex;align-items:center;gap:8px;
+}
+.atdots{display:flex;gap:5px;}
+.atd{width:8px;height:8px;border-radius:50%;}
+.atd.r{background:rgba(255,80,80,0.5);}
+.atd.y{background:rgba(255,180,0,0.5);}
+.atd.g{background:rgba(0,255,65,0.5);}
+.aterm-body{padding:20px 20px 22px;font-size:13px;line-height:1.85;color:rgba(0,255,65,0.55);}
+.aterm-body strong{color:var(--g);font-weight:600;}
+.aterm-body .cmd{color:var(--amber);font-family:'VT323',monospace;font-size:15px;}
+.aterm-body .out{color:rgba(0,255,65,0.55);}
+.stats3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px;}
+.s3{
+  border:1px solid var(--gborder);padding:16px 12px;text-align:center;
+  background:rgba(0,255,65,0.02);transition:all 0.3s;
+}
+.s3:hover{border-color:var(--g);background:rgba(0,255,65,0.07);box-shadow:0 0 20px rgba(0,255,65,0.08);}
+.s3 .sn{font-family:'VT323',monospace;font-size:32px;color:var(--g);text-shadow:var(--glow2);}
+.s3 .sl{font-size:9px;letter-spacing:3px;color:rgba(0,255,65,0.35);}
+
+/* =================== SKILLS =================== */
+#skills{background:rgba(0,0,0,0.5);}
+.skills-layout{display:grid;grid-template-columns:1fr 1fr;gap:28px;}
+
+.sk-panel{border:1px solid var(--gborder);background:rgba(0,3,1,0.9);}
+.sk-header{
+  background:rgba(0,255,65,0.06);border-bottom:1px solid var(--gborder);
+  padding:10px 18px;font-family:'VT323',monospace;font-size:15px;
+  color:rgba(0,255,65,0.4);letter-spacing:3px;
+  display:flex;justify-content:space-between;
+}
+.sk-body{padding:20px 18px;}
+.sk-row{margin-bottom:18px;}
+.sk-row-top{display:flex;justify-content:space-between;margin-bottom:6px;font-size:11px;letter-spacing:2px;}
+.sk-name{color:rgba(0,255,65,0.7);}
+.sk-pct{color:var(--g);font-family:'VT323',monospace;font-size:16px;}
+.sk-track{width:100%;height:5px;background:rgba(0,255,65,0.06);border:1px solid rgba(0,255,65,0.08);position:relative;overflow:hidden;}
+.sk-fill{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,var(--g2),var(--g));
+  box-shadow:0 0 8px rgba(0,255,65,0.5);
+  transition:width 1.4s cubic-bezier(0.4,0,0.2,1);
+  position:relative;
+}
+.sk-fill::after{
+  content:'';position:absolute;right:0;top:-3px;
+  width:2px;height:11px;background:#fff;opacity:0.8;
+  box-shadow:0 0 6px var(--g);
+}
+
+.tools-grid{display:flex;flex-wrap:wrap;gap:8px;}
+.tool-tag{
+  padding:6px 12px;
+  border:1px solid rgba(0,255,65,0.15);
+  background:rgba(0,255,65,0.03);
+  font-size:11px;letter-spacing:1px;color:rgba(0,255,65,0.5);
+  position:relative;overflow:hidden;cursor:default;
+  transition:all 0.25s;
+}
+.tool-tag::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
+  background:var(--g);box-shadow:var(--glow2);
+  transform:scaleY(0);transform-origin:bottom;transition:transform 0.25s;
+}
+.tool-tag:hover{border-color:var(--g);color:var(--g);background:rgba(0,255,65,0.07);}
+.tool-tag:hover::before{transform:scaleY(1);}
+
+/* Radar canvas */
+#radarcanvas{display:block;margin:0 auto;}
+
+/* =================== EXPERIENCE =================== */
+#experience{background:rgba(0,255,65,0.01);}
+.git-log{font-family:'Share Tech Mono',monospace;}
+.git-header{
+  padding:10px 18px;
+  background:rgba(0,255,65,0.05);
+  border:1px solid var(--gborder);
+  border-bottom:none;
+  font-size:11px;letter-spacing:3px;color:rgba(0,255,65,0.3);
+  display:flex;gap:24px;
+}
+.git-item{
+  border:1px solid var(--gborder);
+  border-top:none;
+  background:rgba(0,3,1,0.85);
+  transition:all 0.3s;
+  opacity:0;transform:translateX(-20px);
+}
+.git-item.show{opacity:1;transform:translateX(0);}
+.git-item:hover{border-color:rgba(0,255,65,0.35);background:rgba(0,255,65,0.04);}
+.git-commit-line{
+  padding:14px 18px;
+  display:flex;align-items:center;gap:16px;
+  border-bottom:1px solid rgba(0,255,65,0.05);
+  flex-wrap:wrap;
+}
+.commit-hash{
+  font-family:'VT323',monospace;font-size:17px;
+  color:var(--amber);letter-spacing:2px;min-width:80px;
+}
+.commit-title{
+  flex:1;font-family:'VT323',monospace;font-size:20px;
+  color:var(--g);letter-spacing:2px;text-shadow:var(--glow2);
+}
+.commit-date{
+  font-size:10px;letter-spacing:2px;color:rgba(0,255,65,0.3);
+  padding:3px 10px;border:1px solid rgba(0,255,65,0.12);
+}
+.commit-branch{
+  font-size:10px;letter-spacing:2px;padding:3px 10px;
+  border:1px solid rgba(0,255,238,0.2);color:rgba(0,255,238,0.5);
+  background:rgba(0,255,238,0.03);
+}
+.git-body{padding:12px 18px 18px 114px;}
+.git-diff{
+  font-size:12px;line-height:1.8;
+  color:rgba(0,255,65,0.4);
+}
+.git-diff .add{color:rgba(0,255,65,0.7);}
+.git-diff .add::before{content:'+ ';color:var(--g);}
+.git-diff strong{color:rgba(0,255,65,0.8);}
+
+/* =================== PROJECTS =================== */
+#projects{background:rgba(0,0,0,0.5);}
+.proj-fs{font-family:'Share Tech Mono',monospace;}
+.fs-header{
+  display:grid;grid-template-columns:2fr 80px 100px 120px 1fr;
+  padding:8px 16px;
+  background:rgba(0,255,65,0.06);border:1px solid var(--gborder);border-bottom:none;
+  font-size:9px;letter-spacing:3px;color:rgba(0,255,65,0.3);
+}
+.fs-row{
+  display:grid;grid-template-columns:2fr 80px 100px 120px 1fr;
+  padding:0;
+  border:1px solid var(--gborder);border-top:none;
+  background:rgba(0,3,1,0.85);
+  text-decoration:none;color:inherit;
+  transition:all 0.3s;
+  position:relative;overflow:hidden;
+}
+.fs-row::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:0;
+  background:linear-gradient(90deg,rgba(0,255,65,0.08),transparent);
+  transition:width 0.4s;
+}
+.fs-row:hover{border-color:rgba(0,255,65,0.35);background:rgba(0,255,65,0.04);}
+.fs-row:hover::before{width:100%;}
+.fs-cell{
+  padding:16px;
+  border-right:1px solid rgba(0,255,65,0.06);
+  font-size:12px;color:rgba(0,255,65,0.4);
+  display:flex;align-items:center;gap:8px;
+}
+.fs-cell:last-child{border-right:none;}
+.fs-name{color:var(--g);font-size:13px;font-weight:600;letter-spacing:1px;}
+.fs-perm{color:rgba(0,255,65,0.3);font-size:11px;letter-spacing:1px;}
+.fs-size{color:rgba(0,255,65,0.4);}
+.fs-date{color:rgba(0,255,65,0.3);}
+.fs-desc{color:rgba(0,255,65,0.45);font-size:11px;line-height:1.5;}
+.fs-desc strong{color:rgba(0,255,65,0.7);}
+.fs-type{
+  padding:2px 8px;border:1px solid rgba(0,255,65,0.2);
+  font-size:9px;letter-spacing:1px;color:rgba(0,255,65,0.5);
+  background:rgba(0,255,65,0.03);
+}
+.fs-arrow{
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  font-family:'VT323',monospace;font-size:20px;
+  color:rgba(0,255,65,0.15);transition:all 0.3s;
+}
+.fs-row:hover .fs-arrow{color:var(--g);text-shadow:var(--glow2);transform:translateY(-50%) translate(4px,-2px);}
+
+/* =================== EDU =================== */
+#edu-certs{background:rgba(0,255,65,0.01);}
+.edu-layout{display:grid;grid-template-columns:1fr 1fr;gap:28px;}
+
+.ecwin{border:1px solid var(--gborder);background:rgba(0,3,1,0.9);overflow:hidden;}
+.ecwin-title{
+  background:rgba(0,255,65,0.07);border-bottom:1px solid var(--gborder);
+  padding:12px 18px;
+  font-family:'VT323',monospace;font-size:17px;
+  color:var(--g);letter-spacing:3px;text-shadow:var(--glow2);
+  display:flex;align-items:center;gap:12px;
+}
+.ecwin-body{padding:24px 20px;}
+
+.verify-box{
+  border:1px solid rgba(0,255,65,0.15);
+  background:rgba(0,255,65,0.02);
+  padding:20px;margin-bottom:14px;
+  position:relative;overflow:hidden;
+}
+.verify-box::before{
+  content:'VERIFIED';
+  position:absolute;right:-20px;top:10px;
+  font-family:'VT323',monospace;font-size:11px;letter-spacing:4px;
+  color:rgba(0,255,65,0.08);
+  transform:rotate(15deg);
+  pointer-events:none;
+}
+.vb-title{font-family:'VT323',monospace;font-size:20px;color:var(--g);letter-spacing:2px;margin-bottom:6px;}
+.vb-sub{font-size:11px;letter-spacing:2px;color:rgba(0,255,65,0.35);}
+.vb-hash{
+  margin-top:10px;font-size:10px;letter-spacing:1px;
+  color:rgba(0,255,65,0.2);font-family:'Share Tech Mono',monospace;
+}
+
+.cert-item{
+  display:flex;gap:14px;padding:14px 0;
+  border-bottom:1px dotted rgba(0,255,65,0.08);
+}
+.cert-item:last-child{border-bottom:none;}
+.cert-idx{
+  font-family:'VT323',monospace;font-size:22px;
+  color:rgba(0,255,65,0.3);min-width:30px;
+  text-shadow:var(--glow2);
+}
+.cert-detail strong{
+  display:block;font-size:14px;color:rgba(0,255,65,0.85);
+  margin-bottom:3px;letter-spacing:1px;
+}
+.cert-detail span{font-size:10px;letter-spacing:2px;color:rgba(0,255,65,0.3);}
+.cert-check{
+  margin-left:auto;font-family:'VT323',monospace;font-size:16px;
+  color:var(--g);text-shadow:var(--glow2);
+  align-self:center;
+}
+
+/* =================== FOOTER =================== */
+footer{
+  position:relative;z-index:2;
+  border-top:1px solid var(--gborder);
+  background:rgba(0,3,1,0.97);
+  padding:0;
+}
+.footer-top{
+  display:flex;align-items:stretch;
+  border-bottom:1px solid var(--gborder);
+}
+.ft-block{
+  flex:1;padding:20px 28px;
+  border-right:1px solid var(--gborder);
+  font-family:'VT323',monospace;
+}
+.ft-block:last-child{border-right:none;}
+.ft-label{font-size:10px;letter-spacing:4px;color:rgba(0,255,65,0.25);margin-bottom:6px;}
+.ft-val{font-size:17px;color:var(--g);letter-spacing:2px;}
+.footer-bot{
+  padding:14px 28px;
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:10px;letter-spacing:3px;color:rgba(0,255,65,0.2);
+}
+
+/* =================== REVEAL =================== */
+.rv{opacity:0;transform:translateY(20px);transition:all 0.65s ease;}
+.rv.show{opacity:1;transform:translateY(0);}
+
+/* ALERT POPUP */
+#alert-popup{
+  position:fixed;bottom:24px;right:24px;z-index:9500;
+  border:1px solid rgba(255,0,51,0.4);
+  background:rgba(10,0,3,0.96);
+  padding:16px 20px;max-width:280px;
+  animation:alertSlide 0.4s ease;
+  display:none;
+}
+@keyframes alertSlide{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+.ap-title{font-family:'VT323',monospace;font-size:16px;color:var(--red);letter-spacing:3px;margin-bottom:6px;text-shadow:var(--rglow);}
+.ap-body{font-size:11px;color:rgba(255,0,51,0.5);letter-spacing:1px;line-height:1.6;}
+.ap-close{
+  position:absolute;top:8px;right:10px;
+  font-family:'VT323',monospace;font-size:16px;color:rgba(255,0,51,0.4);
+  cursor:pointer;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero-wrap{grid-template-columns:1fr;}
+  .hero-monitor{display:none;}
+  .about-grid{grid-template-columns:1fr;}
+  .skills-layout{grid-template-columns:1fr;}
+  .edu-layout{grid-template-columns:1fr;}
+  .fs-header,.fs-row{grid-template-columns:1fr 1fr;}
+  .fs-cell:nth-child(3),.fs-cell:nth-child(4){display:none;}
+  .fs-header span:nth-child(3),.fs-header span:nth-child(4){display:none;}
+  section{padding:70px 20px;}
+}
+</style>
+</head>
+<body>
+
+<div id="csr"><div id="csr-inner"></div><div id="csr-outer"></div></div>
+
+<!-- ======= ALERT POPUP ======= -->
+<div id="alert-popup">
+  <div class="ap-close" onclick="this.parentElement.style.display='none'">✕</div>
+  <div class="ap-title">⚠ INTRUSION DETECTED</div>
+  <div class="ap-body" id="ap-msg">Scanning visitor... IP logged. Countermeasures armed.</div>
+</div>
+
+<!-- ======= BOOT SCREEN ======= -->
+<div id="boot">
+  <div id="boot-header">
+    <span>SHOAIB_SEC OS v4.2.1 — KALI LINUX</span>
+    <span id="boot-time"></span>
+    <span>THREAT LEVEL: <span style="color:var(--amber)">ELEVATED</span></span>
+  </div>
+  <div id="boot-terminal"></div>
+  <div id="boot-bottom">
+    <div class="boot-stages">
+      <div class="boot-stage" id="bs1"><div class="boot-stage-fill"></div></div>
+      <div class="boot-stage" id="bs2"><div class="boot-stage-fill"></div></div>
+      <div class="boot-stage" id="bs3"><div class="boot-stage-fill"></div></div>
+      <div class="boot-stage" id="bs4"><div class="boot-stage-fill"></div></div>
+      <div class="boot-stage" id="bs5"><div class="boot-stage-fill"></div></div>
+    </div>
+    <div id="boot-status">
+      <span id="boot-label">INITIALIZING...</span>
+      <span id="boot-pct">0%</span>
+    </div>
+  </div>
+</div>
+
+<!-- ======= PORTFOLIO ======= -->
+<div id="portfolio">
+
+<canvas id="bgcanvas"></canvas>
+
+<!-- TOPBAR -->
+<div id="topbar">
+  <div class="tb-left">
+    <div class="tb-logo">SM_SEC</div>
+    <div class="tb-threat">
+      <span class="threat-dot"></span>
+      <span>THREAT: LOW</span>
+    </div>
+  </div>
+  <ul class="tb-nav">
+    <li><a href="#about">about</a></li>
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#experience">exp</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#edu-certs">certs</a></li>
+  </ul>
+  <div class="tb-right">
+    <div class="tb-stat">SESSIONS<span id="tb-sess">1,337</span></div>
+    <div class="tb-stat">UPTIME<span id="tb-up">99.9%</span></div>
+    <div id="tb-clock">--:--:--</div>
+  </div>
+</div>
+
+<main>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="hero-scanline"></div>
+  <div class="hero-wrap">
+    <div class="hero-left">
+      <div class="hero-eyebrow rv">// CLASSIFIED PERSONNEL FILE — CLEARANCE REQUIRED</div>
+      <div class="hero-name rv">
+        SHOAIB<br>MUHAMMAD
+        <span class="g1">SHOAIB<br>MUHAMMAD</span>
+        <span class="g2">SHOAIB<br>MUHAMMAD</span>
+      </div>
+      <div class="hero-role rv">
+        <span id="typewriter-text"></span><span class="tcursor"></span>
+      </div>
+      <div class="hero-divider rv"></div>
+      <div class="hero-prompt-block rv">
+        <div><span class="hp-prompt">MAIL   ›› </span><span class="hp-val">shoaibsafi43214@gmail.com</span></div>
+        <div><span class="hp-prompt">PHONE  ›› </span><span class="hp-val">+923418148163</span></div>
+        <div><span class="hp-prompt">STATUS ›› </span><span class="hp-val">OPEN TO ENGAGEMENTS</span></div>
+        <div><span class="hp-prompt">LOC    ›› </span><span class="hp-val">MARDAN, KPK, PAKISTAN</span></div>
+      </div>
+      <div class="hero-actions rv">
+        <a href="mailto:shoaibsafi43214@gmail.com" class="hbtn">✉ CONTACT</a>
+        <a href="https://linkedin.com/in/shoaibmuhammad" target="_blank" class="hbtn">⬡ LINKEDIN</a>
+        <a href="https://github.com/shoaib-muhammad1122" target="_blank" class="hbtn">⌥ GITHUB</a>
+      </div>
+    </div>
+
+    <div class="hero-monitor rv">
+      <div class="hm-top">
+        <div class="hm-dots">
+          <span class="hmd r"></span><span class="hmd y"></span><span class="hmd g"></span>
+        </div>
+        <span>sys_monitor.sh</span>
+      </div>
+      <div class="hm-body">
+        <div class="hm-section-title">SYSTEM RESOURCES</div>
+        <div class="hm-row">
+          <div>
+            <div class="hm-key">CPU LOAD</div>
+            <div class="hm-bar"><div class="hm-bar-fill" id="cpu-bar" style="width:47%"></div></div>
+          </div>
+          <div class="hm-val" id="cpu-val">47%</div>
+        </div>
+        <div class="hm-row">
+          <div>
+            <div class="hm-key">MEMORY</div>
+            <div class="hm-bar"><div class="hm-bar-fill" id="mem-bar" style="width:63%"></div></div>
+          </div>
+          <div class="hm-val" id="mem-val">63%</div>
+        </div>
+        <div class="hm-row">
+          <div>
+            <div class="hm-key">NETWORK I/O</div>
+            <div class="hm-bar"><div class="hm-bar-fill" id="net-bar" style="width:28%"></div></div>
+          </div>
+          <div class="hm-val" id="net-val">↑2.4</div>
+        </div>
+
+        <div class="hm-section" style="margin-top:18px">
+          <div class="hm-section-title">ACTIVE TOOLS</div>
+          <div class="badge-row">
+            <span class="badge">nmap</span>
+            <span class="badge">burpsuite</span>
+            <span class="badge">metasploit</span>
+            <span class="badge">wireshark</span>
+          </div>
+        </div>
+
+        <div class="hm-section">
+          <div class="hm-section-title">CLEARANCE</div>
+          <div class="badge-row">
+            <span class="badge cyn">CEH</span>
+            <span class="badge cyn">ETHICAL HACKER</span>
+            <span class="badge">HackerOne</span>
+          </div>
+        </div>
+
+        <div class="threat-meter">
+          <div class="tm-label">CURRENT THREAT LEVEL</div>
+          <div class="tm-bar"><div class="tm-fill"></div></div>
+          <div class="tm-val">LOW — AUTHORIZED USER</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section id="about">
+  <div class="wrap">
+    <div class="rv"><div class="slabel">// SECTION 01 — IDENTITY</div><div class="stitle">ABOUT</div></div>
+    <div class="about-grid">
+      <div class="about-id rv">
+        <div class="aid-header"><span>id_card.enc</span><span style="color:var(--g)">DECRYPTED</span></div>
+        <div class="aid-photo">
+          <img src="shoaib.jpeg" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div class="aidphoto-scan"></div>
+          <div class="aid-corners">
+            <span class="tl"></span><span class="tr"></span>
+            <span class="bl"></span><span class="br"></span>
+          </div>
+        </div>
+        <div class="aid-data">
+          <div class="aid-field"><div class="aid-key">FULL NAME</div><div class="aid-val">Shoaib Muhammad</div></div>
+          <div class="aid-field"><div class="aid-key">ROLE</div><div class="aid-val">Penetration Tester</div></div>
+          <div class="aid-field"><div class="aid-key">LOCATION</div><div class="aid-val">Mardan, KPK, PK</div></div>
+          <div class="aid-field"><div class="aid-key">CLEARANCE</div><div class="aid-val ok">ETHICAL_HACKER</div></div>
+          <div class="aid-field"><div class="aid-key">STATUS</div><div class="aid-val ok">■ ACTIVE</div></div>
+        </div>
+      </div>
+
+      <div class="about-content">
+        <div class="aterm rv">
+          <div class="aterm-bar">
+            <div class="atdots"><span class="atd r"></span><span class="atd y"></span><span class="atd g"></span></div>
+            terminal — shoaib@kali:~
+          </div>
+          <div class="aterm-body">
+            <div class="cmd">$ cat /etc/profile/shoaib.bio</div>
+            <div class="out" style="margin-top:10px">
+              Highly motivated and aspiring <strong>Penetration Tester</strong> with hands-on experience in vulnerability hunting and developing security tools.
+              <br><br>
+              Currently gaining practical skills with <strong>bug bounty programs</strong> on HackerOne and mastering <strong>responsible disclosure principles</strong>. Certified Ethical Hacker (CEH) from EC-Council.
+              <br><br>
+              Passionate about <strong>ethical hacking</strong> and contributing to a safer digital environment. Specializing in OWASP Top 10, network intrusion, and red team operations.
+            </div>
+          </div>
+        </div>
+        <div class="stats3 rv">
+          <div class="s3"><div class="sn">CEH</div><div class="sl">CERTIFIED</div></div>
+          <div class="s3"><div class="sn">4+</div><div class="sl">PROJECTS</div></div>
+          <div class="s3"><div class="sn">10yr</div><div class="sl">DIGITAL EXP</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SKILLS ===== -->
+<section id="skills">
+  <div class="wrap">
+    <div class="rv"><div class="slabel">// SECTION 02 — CAPABILITIES</div><div class="stitle">SKILLS</div></div>
+    <div class="skills-layout">
+      <div class="sk-panel rv">
+        <div class="sk-header"><span>proficiency_scan.sh</span><span style="color:var(--g)">RUNNING</span></div>
+        <div class="sk-body">
+          <div class="sk-row">
+            <div class="sk-row-top"><span class="sk-name">SECURITY TOOLS</span><span class="sk-pct">85%</span></div>
+            <div class="sk-track"><div class="sk-fill" data-w="85"></div></div>
+          </div>
+          <div class="sk-row">
+            <div class="sk-row-top"><span class="sk-name">PENETRATION TESTING</span><span class="sk-pct">80%</span></div>
+            <div class="sk-track"><div class="sk-fill" data-w="80"></div></div>
+          </div>
+          <div class="sk-row">
+            <div class="sk-row-top"><span class="sk-name">PYTHON / SCRIPTING</span><span class="sk-pct">78%</span></div>
+            <div class="sk-track"><div class="sk-fill" data-w="78"></div></div>
+          </div>
+          <div class="sk-row">
+            <div class="sk-row-top"><span class="sk-name">NETWORK SECURITY</span><span class="sk-pct">82%</span></div>
+            <div class="sk-track"><div class="sk-fill" data-w="82"></div></div>
+          </div>
+          <div class="sk-row">
+            <div class="sk-row-top"><span class="sk-name">LINUX / KALI</span><span class="sk-pct">88%</span></div>
+            <div class="sk-track"><div class="sk-fill" data-w="88"></div></div>
+          </div>
+          <div class="sk-row">
+            <div class="sk-row-top"><span class="sk-name">CTF / BUG BOUNTY</span><span class="sk-pct">74%</span></div>
+            <div class="sk-track"><div class="sk-fill" data-w="74"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="sk-panel rv" style="margin-bottom:20px">
+          <div class="sk-header"><span>tools_inventory.sh</span></div>
+          <div class="sk-body">
+            <div class="hm-section-title" style="margin-bottom:12px">OFFENSIVE TOOLS</div>
+            <div class="tools-grid">
+              <span class="tool-tag">Nmap</span>
+              <span class="tool-tag">Metasploit</span>
+              <span class="tool-tag">Burp Suite</span>
+              <span class="tool-tag">Nikto</span>
+              <span class="tool-tag">SQLmap</span>
+              <span class="tool-tag">Hydra</span>
+            </div>
+            <div class="hm-section-title" style="margin-top:16px;margin-bottom:12px">DEFENSIVE TOOLS</div>
+            <div class="tools-grid">
+              <span class="tool-tag">Wireshark</span>
+              <span class="tool-tag">Snort</span>
+              <span class="tool-tag">Suricata</span>
+              <span class="tool-tag">Splunk</span>
+            </div>
+            <div class="hm-section-title" style="margin-top:16px;margin-bottom:12px">LANGUAGES</div>
+            <div class="tools-grid">
+              <span class="tool-tag">Python</span>
+              <span class="tool-tag">C++</span>
+              <span class="tool-tag">SQL</span>
+              <span class="tool-tag">Bash</span>
+            </div>
+          </div>
+        </div>
+        <div class="sk-panel rv">
+          <div class="sk-header"><span>os_support.sh</span></div>
+          <div class="sk-body">
+            <div class="tools-grid">
+              <span class="tool-tag">Kali Linux</span>
+              <span class="tool-tag">Ubuntu</span>
+              <span class="tool-tag">Windows</span>
+              <span class="tool-tag">VirtualBox</span>
+              <span class="tool-tag">VMware</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EXPERIENCE ===== -->
+<section id="experience">
+  <div class="wrap">
+    <div class="rv"><div class="slabel">// SECTION 03 — OPERATIONS LOG</div><div class="stitle">EXPERIENCE</div></div>
+    <div class="git-log rv">
+      <div class="git-header">
+        <span>COMMIT</span><span>BRANCH</span><span>ROLE</span><span>DATE</span>
+      </div>
+
+      <div class="git-item">
+        <div class="git-commit-line">
+          <span class="commit-hash">a3f9c12</span>
+          <span class="commit-title">Penetration Tester — HackerOne</span>
+          <span class="commit-branch">main</span>
+          <span class="commit-date">APR 2025 – PRESENT</span>
+        </div>
+        <div class="git-body">
+          <div class="git-diff">
+            <div class="add">Gaining hands-on experience with <strong>vulnerability hunting</strong> and bug bounty programs.</div>
+            <div class="add">Learning exploitation techniques and responsible reporting processes.</div>
+            <div class="add">Practicing <strong>responsible disclosure</strong> in simulated environments.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="git-item">
+        <div class="git-commit-line">
+          <span class="commit-hash">7b12e88</span>
+          <span class="commit-title">Cybersecurity Career Mentor — EC-Council</span>
+          <span class="commit-branch">mentor</span>
+          <span class="commit-date">MAR – MAY 2025</span>
+        </div>
+        <div class="git-body">
+          <div class="git-diff">
+            <div class="add">Mentored aspiring cybersecurity students through <strong>webinars and workshops</strong>.</div>
+            <div class="add">Shared insights on ethical hacking tools and career development strategies.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="git-item">
+        <div class="git-commit-line">
+          <span class="commit-hash">0d44f71</span>
+          <span class="commit-title">Facebook Ads Expert — Fiverr</span>
+          <span class="commit-branch">freelance</span>
+          <span class="commit-date">APR 2015 – MAY 2025</span>
+        </div>
+        <div class="git-body">
+          <div class="git-diff">
+            <div class="add">10 years executing and optimizing <strong>ad campaigns</strong> for clients worldwide.</div>
+            <div class="add">Delivered measurable outcomes with budget-friendly marketing strategies.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROJECTS ===== -->
+<section id="projects">
+  <div class="wrap">
+    <div class="rv"><div class="slabel">// SECTION 04 — OPERATION FILES</div><div class="stitle">PROJECTS</div></div>
+    <div class="proj-fs rv">
+      <div class="fs-header">
+        <span>NAME</span><span>PERMS</span><span>SIZE</span><span>MODIFIED</span><span>DESCRIPTION</span>
+      </div>
+
+      <a href="https://github.com/shoaib-muhammad1122/vulnscan3" target="_blank" class="fs-row">
+        <div class="fs-cell"><span class="fs-type">PY</span><span class="fs-name">vulnscan3/</span></div>
+        <div class="fs-cell fs-perm">-rwxr-xr-x</div>
+        <div class="fs-cell fs-size">4.2 MB</div>
+        <div class="fs-cell fs-date">2025-03</div>
+        <div class="fs-cell fs-desc">Advanced <strong>OWASP Top 10</strong> vulnerability scanner. Multi-threaded, fast across large IP ranges.</div>
+        <span class="fs-arrow">↗</span>
+      </a>
+
+      <a href="https://github.com/shoaib-muhammad1122/code_alpha_repo/tree/main/Projects/IntrusionDetectionSystem" target="_blank" class="fs-row">
+        <div class="fs-cell"><span class="fs-type">SH</span><span class="fs-name">ids_suricata/</span></div>
+        <div class="fs-cell fs-perm">-rwxr-xr-x</div>
+        <div class="fs-cell fs-size">1.8 MB</div>
+        <div class="fs-cell fs-date">2025-02</div>
+        <div class="fs-cell fs-desc"><strong>Suricata</strong>-based IDS. Alerts for brute force, port scans, and common network attacks.</div>
+        <span class="fs-arrow">↗</span>
+      </a>
+
+      <a href="https://github.com/shoaib-muhammad1122/code_alpha_repo/tree/main/Projects/Network_sniffer" target="_blank" class="fs-row">
+        <div class="fs-cell"><span class="fs-type">PY</span><span class="fs-name">net_sniffer/</span></div>
+        <div class="fs-cell fs-perm">-rwxr-xr-x</div>
+        <div class="fs-cell fs-size">890 KB</div>
+        <div class="fs-cell fs-date">2025-01</div>
+        <div class="fs-cell fs-desc">Raw socket <strong>packet sniffer</strong>. Real-time inspection of IP headers, protocols and data capture.</div>
+        <span class="fs-arrow">↗</span>
+      </a>
+
+      <a href="https://github.com/shoaib-muhammad1122/code_alpha_repo/tree/main/Projects/Phishing%20Attacks%20Educational%20Resources" target="_blank" class="fs-row">
+        <div class="fs-cell"><span class="fs-type">PY</span><span class="fs-name">phish_sim/</span></div>
+        <div class="fs-cell fs-perm">-rwxr-xr-x</div>
+        <div class="fs-cell fs-size">2.1 MB</div>
+        <div class="fs-cell fs-date">2024-11</div>
+        <div class="fs-cell fs-desc"><strong>Phishing simulation</strong> and user awareness training tool. Reduced incidents post-training.</div>
+        <span class="fs-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EDU & CERTS ===== -->
+<section id="edu-certs">
+  <div class="wrap">
+    <div class="rv"><div class="slabel">// SECTION 05 — CREDENTIALS</div><div class="stitle">EDUCATION</div></div>
+    <div class="edu-layout rv">
+      <div class="ecwin">
+        <div class="ecwin-title">🎓 DEGREE_FILE.enc</div>
+        <div class="ecwin-body">
+          <div class="verify-box">
+            <div class="vb-title">Bachelor's in Cyber Security</div>
+            <div class="vb-sub">SHIFA TAMEER-E-MILLAT UNIVERSITY · PAKISTAN</div>
+            <div class="vb-sub" style="margin-top:4px">2023 – 2027 · IN PROGRESS</div>
+            <div class="vb-hash">SHA256: a3f2c1d9e4b8f7...2025-program-verified</div>
+          </div>
+          <div class="hm-section-title" style="padding-top:4px">KEY MODULES</div>
+          <div class="tools-grid" style="margin-top:10px">
+            <span class="tool-tag">Network Security</span>
+            <span class="tool-tag">Ethical Hacking</span>
+            <span class="tool-tag">Cryptography</span>
+            <span class="tool-tag">Digital Forensics</span>
+            <span class="tool-tag">Malware Analysis</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ecwin">
+        <div class="ecwin-title">🏆 CERTIFICATIONS.log</div>
+        <div class="ecwin-body">
+          <div class="cert-item">
+            <span class="cert-idx">01</span>
+            <div class="cert-detail">
+              <strong>Certified Ethical Hacker (CEH)</strong>
+              <span>EC-COUNCIL · 2024 · VERIFIED</span>
+            </div>
+            <span class="cert-check">[✓]</span>
+          </div>
+          <div class="cert-item">
+            <span class="cert-idx">02</span>
+            <div class="cert-detail">
+              <strong>Penetration Testing Web Hacking</strong>
+              <span>EHUNAR.ORG · 2025 · VERIFIED</span>
+            </div>
+            <span class="cert-check">[✓]</span>
+          </div>
+          <div class="cert-item">
+            <span class="cert-idx">03</span>
+            <div class="cert-detail">
+              <strong>Mastering CTF with PicoCTF</strong>
+              <span>3-DAY BOOTCAMP · 2025 · VERIFIED</span>
+            </div>
+            <span class="cert-check">[✓]</span>
+          </div>
+          <div class="cert-item">
+            <span class="cert-idx">04</span>
+            <div class="cert-detail">
+              <strong>Mastering Vulnerability Assessment</strong>
+              <span>3-DAY BOOTCAMP · 2025 · VERIFIED</span>
+            </div>
+            <span class="cert-check">[✓]</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-top">
+    <div class="ft-block"><div class="ft-label">OPERATOR</div><div class="ft-val">Shoaib Muhammad</div></div>
+    <div class="ft-block"><div class="ft-label">LOCATION</div><div class="ft-val">Mardan, KPK, Pakistan</div></div>
+    <div class="ft-block"><div class="ft-label">BUILT WITH</div><div class="ft-val">HTML · CSS · JS</div></div>
+    <div class="ft-block"><div class="ft-label">YEAR</div><div class="ft-val">2025</div></div>
+  </div>
+  <div class="footer-bot">
+    <span>root@shoaib:~$ logout</span>
+    <span>ALL CONNECTIONS TERMINATED — SESSION CLOSED</span>
+    <span>© 2025 SHOAIB MUHAMMAD</span>
+  </div>
+</footer>
+
+</div><!-- end portfolio -->
+
+<script>
+// ============ CURSOR ============
+const csr = document.getElementById('csr');
+document.addEventListener('mousemove', e => {
+  csr.style.left = e.clientX + 'px';
+  csr.style.top = e.clientY + 'px';
+});
+
+// ============ CLOCK ============
+function updateClock() {
+  const now = new Date();
+  const t = [now.getHours(), now.getMinutes(), now.getSeconds()]
+    .map(n => String(n).padStart(2, '0')).join(':');
+  const el = document.getElementById('tb-clock');
+  const bt = document.getElementById('boot-time');
+  if (el) el.textContent = t;
+  if (bt) bt.textContent = t;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// ============ BOOT SEQUENCE ============
+const BOOT = [
+  {c:'d', t:'[ BIOS ] Shoaib Security Systems v4.2.1'},
+  {c:'d', t:'[ BIOS ] CPU: Intel Core i9 — 16 cores @ 3.8GHz'},
+  {c:'g', t:'[  OK  ] Memory: 32GB DDR5 ECC — passed'},
+  {c:'g', t:'[  OK  ] NVMe SSD: 2TB — mounted /dev/nvme0n1'},
+  {c:'d', t:'Loading kernel modules...'},
+  {c:'g', t:'[  OK  ] net.core.netdev_max_backlog = 65536'},
+  {c:'g', t:'[  OK  ] iptables: firewall rules applied (847 rules)'},
+  {c:'g', t:'[  OK  ] VPN tunnel: ProtonVPN — tun0 UP [10.2.0.1]'},
+  {c:'d', t:'Starting network services...'},
+  {c:'g', t:'[  OK  ] openssh-server: listening on 22/tcp'},
+  {c:'g', t:'[  OK  ] tor.service: SOCKS proxy on 127.0.0.1:9050'},
+  {c:'a', t:'[ WARN ] Anonymous mode: ENABLED — identity masked'},
+  {c:'d', t:'Scanning for active threats...'},
+  {c:'r', t:'[ALERT] UNAUTHORIZED ACCESS ATTEMPT DETECTED'},
+  {c:'r', t:'[ALERT] SOURCE IP: 185.220.101.47 [TOR EXIT NODE]'},
+  {c:'r', t:'[ALERT] Attack vector: SSH brute-force — 2048 attempts'},
+  {c:'g', t:'[  OK  ] Fail2ban: IP 185.220.101.47 — BANNED (10y)'},
+  {c:'g', t:'[  OK  ] Countermeasures deployed — honeypot activated'},
+  {c:'d', t:'Verifying operator identity...'},
+  {c:'c', t:'[ SYS ] Biometric scan: running...'},
+  {c:'g', t:'[  OK  ] Fingerprint: MATCH — Shoaib Muhammad'},
+  {c:'g', t:'[  OK  ] Clearance level: ETHICAL_HACKER'},
+  {c:'g', t:'[  OK  ] CEH certification: VERIFIED [EC-Council 2024]'},
+  {c:'d', t:'Loading hacking tools...'},
+  {c:'g', t:'[  OK  ] nmap 7.94 — loaded'},
+  {c:'g', t:'[  OK  ] metasploit-framework 6.3 — loaded'},
+  {c:'g', t:'[  OK  ] burpsuite-pro 2024.1 — loaded'},
+  {c:'g', t:'[  OK  ] wireshark 4.2.3 — loaded'},
+  {c:'d', t:'Mounting classified files...'},
+  {c:'g', t:'[  OK  ] /home/shoaib/portfolio.enc — DECRYPTED'},
+  {c:'g', t:'[  OK  ] /home/shoaib/projects/ — 4 files found'},
+  {c:'g', t:'[  OK  ] /home/shoaib/certs/ — 4 verified'},
+  {c:'c', t:'[ SYS ] Launching secure interface...'},
+  {c:'g', t:'                                               '},
+  {c:'g', t:'  ACCESS GRANTED. Welcome, Agent Shoaib.       '},
+  {c:'g', t:'                                               '},
+];
+
+const stages = [
+  {end:6,  label:'HARDWARE CHECK'},
+  {end:12, label:'NETWORK INIT'},
+  {end:18, label:'THREAT SCAN'},
+  {end:24, label:'IDENTITY VERIFY'},
+  {end:BOOT.length, label:'LOADING PROFILE'},
+];
+
+let li = 0;
+const term = document.getElementById('boot-terminal');
+const bootLabel = document.getElementById('boot-label');
+const bootPct = document.getElementById('boot-pct');
+
+function addBootLine() {
+  if (li >= BOOT.length) {
+    setTimeout(() => {
+      for (let i=1;i<=5;i++) {
+        document.getElementById('bs'+i).classList.add('done');
+        document.getElementById('bs'+i).querySelector('.boot-stage-fill').style.width='100%';
+      }
+      bootLabel.textContent = 'ACCESS GRANTED';
+      bootPct.textContent = '100%';
+      setTimeout(() => {
+        const b = document.getElementById('boot');
+        b.style.opacity = '0';
+        b.style.transition = 'opacity 0.8s ease';
+        setTimeout(() => {
+          b.style.display = 'none';
+          document.getElementById('portfolio').style.display = 'block';
+          initPortfolio();
+        }, 800);
+      }, 600);
+    }, 300);
+    return;
+  }
+  const d = BOOT[li];
+  const p = document.createElement('span');
+  p.className = 'line ' + d.c;
+  p.textContent = d.t;
+  term.appendChild(p);
+  term.appendChild(document.createElement('br'));
+  term.scrollTop = term.scrollHeight;
+  li++;
+  const pct = Math.round((li / BOOT.length) * 100);
+  bootPct.textContent = pct + '%';
+  for (let s=0; s<stages.length; s++) {
+    const stage = stages[s];
+    const prev = s>0 ? stages[s-1].end : 0;
+    if (li <= stage.end) {
+      bootLabel.textContent = stage.label;
+      const sfill = ((li - prev) / (stage.end - prev)) * 100;
+      document.getElementById('bs'+(s+1)).querySelector('.boot-stage-fill').style.width = Math.min(sfill,100) + '%';
+      for (let j=0;j<s;j++) {
+        document.getElementById('bs'+(j+1)).classList.add('done');
+        document.getElementById('bs'+(j+1)).querySelector('.boot-stage-fill').style.width='100%';
+      }
+      break;
+    }
+  }
+  const delay = d.c === 'r' ? 320 : d.c === 'a' ? 240 : Math.random()*70+30;
+  setTimeout(addBootLine, delay);
+}
+setTimeout(addBootLine, 400);
+
+// ============ PORTFOLIO INIT ============
+function initPortfolio() {
+  initBgCanvas();
+  initObserver();
+  initSkillBars();
+  initTypewriter();
+  initSysMonitor();
+  initGitItems();
+  showRandomAlerts();
+}
+
+// BG PARTICLE NETWORK
+function initBgCanvas() {
+  const canvas = document.getElementById('bgcanvas');
+  const ctx = canvas.getContext('2d');
+  let W = canvas.width = window.innerWidth;
+  let H = canvas.height = window.innerHeight;
+  window.addEventListener('resize', () => { W=canvas.width=window.innerWidth; H=canvas.height=window.innerHeight; });
+  const pts = Array.from({length:90}, () => ({
+    x: Math.random()*W, y: Math.random()*H,
+    vx: (Math.random()-.5)*0.4, vy: (Math.random()-.5)*0.4,
+    r: Math.random()*1.5+0.5
+  }));
+  function draw() {
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if(p.x<0||p.x>W) p.vx*=-1;
+      if(p.y<0||p.y>H) p.vy*=-1;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(0,255,65,0.6)';
+      ctx.fill();
+    });
+    for(let i=0;i<pts.length;i++) {
+      for(let j=i+1;j<pts.length;j++) {
+        const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y;
+        const dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<160) {
+          ctx.beginPath();
+          ctx.moveTo(pts[i].x,pts[i].y);
+          ctx.lineTo(pts[j].x,pts[j].y);
+          ctx.strokeStyle=`rgba(0,255,65,${0.12*(1-dist/160)})`;
+          ctx.lineWidth=0.6;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+}
+
+// TYPEWRITER
+const roles = [
+  'Penetration Tester',
+  'Bug Bounty Hunter',
+  'Ethical Hacker',
+  'Security Researcher',
+  'CTF Player',
+  'Red Team Operator',
+];
+let ri=0, ci=0, deleting=false;
+function typewrite() {
+  const tw = document.getElementById('typewriter-text');
+  if (!tw) return;
+  const word = roles[ri];
+  if (!deleting) {
+    tw.textContent = word.slice(0, ++ci);
+    if (ci === word.length) { deleting=true; setTimeout(typewrite,1800); return; }
+  } else {
+    tw.textContent = word.slice(0, --ci);
+    if (ci === 0) { deleting=false; ri=(ri+1)%roles.length; }
+  }
+  setTimeout(typewrite, deleting ? 50 : 90);
+}
+function initTypewriter() { typewrite(); }
+
+// SYS MONITOR ANIMATION
+function initSysMonitor() {
+  function rndFlux(base, range) { return Math.max(5, Math.min(99, base + (Math.random()-.5)*range)); }
+  setInterval(() => {
+    const cpu = rndFlux(47, 20);
+    const mem = rndFlux(63, 12);
+    const net = rndFlux(28, 25);
+    const cb = document.getElementById('cpu-bar');
+    const mb = document.getElementById('mem-bar');
+    const nb = document.getElementById('net-bar');
+    const cv = document.getElementById('cpu-val');
+    const mv = document.getElementById('mem-val');
+    const nv = document.getElementById('net-val');
+    if(cb){cb.style.width=cpu+'%';cv.textContent=Math.round(cpu)+'%';}
+    if(mb){mb.style.width=mem+'%';mv.textContent=Math.round(mem)+'%';}
+    if(nb){nb.style.width=net+'%';nv.textContent='↑'+( net/10).toFixed(1);}
+    // sessions counter
+    const sess = document.getElementById('tb-sess');
+    if(sess) sess.textContent = (1337 + Math.floor(Math.random()*3)).toLocaleString();
+  }, 2000);
+}
+
+// SCROLL REVEAL
+function initObserver() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) setTimeout(()=>e.target.classList.add('show'),100); });
+  }, {threshold:0.1});
+  document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+}
+
+// GIT ITEMS
+function initGitItems() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e,i) => { if(e.isIntersecting) setTimeout(()=>e.target.classList.add('show'),i*150); });
+  }, {threshold:0.1});
+  document.querySelectorAll('.git-item').forEach(el=>obs.observe(el));
+}
+
+// SKILL BARS
+function initSkillBars() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting) { e.target.style.width=e.target.dataset.w+'%'; obs.unobserve(e.target); }
+    });
+  }, {threshold:0.3});
+  document.querySelectorAll('.sk-fill').forEach(b=>obs.observe(b));
+}
+
+// RANDOM ALERTS
+const alerts = [
+  'New vulnerability found in target scope.',
+  'Recon scan complete — 247 open ports.',
+  'SQL injection vector identified.',
+  'XSS payload executed on test target.',
+  'Privilege escalation path mapped.',
+];
+function showRandomAlerts() {
+  setTimeout(() => {
+    const popup = document.getElementById('alert-popup');
+    const msg = document.getElementById('ap-msg');
+    let idx = 0;
+    function show() {
+      msg.textContent = alerts[idx++ % alerts.length];
+      popup.style.display = 'block';
+      setTimeout(() => { popup.style.display='none'; }, 4000);
+      setTimeout(show, 12000 + Math.random()*8000);
+    }
+    setTimeout(show, 5000);
+  }, 500);
+}
+</script>
+</body>
+</html>
